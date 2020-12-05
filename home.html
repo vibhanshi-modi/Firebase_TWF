@@ -56,13 +56,13 @@
    	firebase.database().ref('Users/'+id).once('value').then(function(snapshot){
   if(snapshot.hasChild("PlaceOfBirth")){
       var PoB=(snapshot.val() && snapshot.val().PlaceOfBirth)
-     window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/afterlogin.html");
+     window.location.replace("./afterlogin.html");
       localStorage.setItem('id',id);
     }
     else
     {
 
-      window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/record_PoB.html");
+      window.location.replace("./record_PoB.html");
       localStorage.setItem('id',id);
     }
 

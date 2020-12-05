@@ -1,7 +1,7 @@
 <?php
 
-include_once("home.html");
-include_once("afterlogin.html");
-include_once("recordPoB.html");
+include("home.html");
+include("afterlogin.html");
+include("recordPoB.html");
 
 ?>

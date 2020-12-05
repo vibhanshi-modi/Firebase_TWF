@@ -40,7 +40,7 @@
  function Signout()
   {
     firebase.auth().signOut().then(function() {
-      window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/home.html");
+      window.location.replace("./home.html");
   
 }).catch(function(error) {
   var errorCode=error.code;

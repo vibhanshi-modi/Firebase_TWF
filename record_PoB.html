@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+ <div align="center" id="BirthPlace">
+  <h1>Please update your Place Of Birth!</h1>
+  <input type="text" name="PoB" id="PoB" placeholder="Place Of Birth"><br><br>
+  <button onclick="RecordPoB()">UPDATE</button>
+  <button onclick="Signout()">SIGNOUT</button>
+ </div>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+  apiKey: "AIzaSyBhi8p4EO4vE4a9sQgM01V-cMvzVyloFI8",
+  authDomain: "moma-c9215.firebaseapp.com",
+  databaseURL: "https://moma-c9215-default-rtdb.firebaseio.com",
+  projectId: "moma-c9215",
+  storageBucket: "moma-c9215.appspot.com",
+  messagingSenderId: "390142358139",
+  appId: "1:390142358139:web:d9ba2953459ce2370828de",
+  measurementId: "G-CQEP3JRJQ4"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  function RecordPoB()
+  {
+    var PoB=document.getElementById('PoB').value;
+    var userId=localStorage.getItem('id');
+    firebase.database().ref('Users/'+userId).set({
+      PlaceOfBirth: PoB,
+    }).then(function(){
+      alert('PlaceOfBirth updated successfully');
+    })
+  }
+
+  function Signout()
+  {
+    firebase.auth().signOut().then(function() {
+      window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/home.html");
+  
+}).catch(function(error) {
+  var errorCode=error.code;
+    var errorMsg=error.message;
+});
+
+  }
+
+</script>
+</body>
+</html>
+

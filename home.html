@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>My First Project</title>
+</head>
+<body>
+
+ <div align="center" id="Registration">
+  <h1>WELCOME!</h1>
+  <input type="text" name="email" id="email" placeholder="Enter Your Email"><br><br>
+  <input type="text" name="pass" id="password" placeholder="Enter Your Password"><br><br>
+  <button onclick="RegisterUser()">SIGNUP</button>
+  <button onclick="LoginUser()">LOGIN</button>
+ </div>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+
+<script>
+
+  var firebaseConfig = {
+  apiKey: "AIzaSyBhi8p4EO4vE4a9sQgM01V-cMvzVyloFI8",
+  authDomain: "moma-c9215.firebaseapp.com",
+  databaseURL: "https://moma-c9215-default-rtdb.firebaseio.com",
+  projectId: "moma-c9215",
+  storageBucket: "moma-c9215.appspot.com",
+  messagingSenderId: "390142358139",
+  appId: "1:390142358139:web:d9ba2953459ce2370828de",
+  measurementId: "G-CQEP3JRJQ4"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+  function RegisterUser() {
+   var email=document.getElementById('email').value;
+   var password=document.getElementById('password').value;
+   firebase.auth().createUserWithEmailAndPassword(email,password).then(function(){
+     alert('User Registered successfully');
+    var id=firebase.auth().currentUser.uid;
+
+   }).catch(function(error){
+
+    var errorcode=error.code;
+    var errormsg=error.message;
+    document.write(errormsg+"Refresh to enter credentials again")
+
+   });
+  }
+  function LoginUser(){
+   var email=document.getElementById('email').value;
+   var password=document.getElementById('password').value;
+   firebase.auth().signInWithEmailAndPassword(email,password).then(function(){
+   	var id=firebase.auth().currentUser.uid;
+   	firebase.database().ref('Users/'+id).once('value').then(function(snapshot){
+  if(snapshot.hasChild("PlaceOfBirth")){
+      var PoB=(snapshot.val() && snapshot.val().PlaceOfBirth)
+     window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/afterlogin.html");
+      localStorage.setItem('id',id);
+    }
+    else
+    {
+
+      window.location.replace("file:///C:/Users/vibha/Documents/flask_app/TWF/templates/record_PoB.html");
+      localStorage.setItem('id',id);
+    }
+
+ });
+
+
+    }).catch(function(error){
+    	document.write("Please check your credentials. Refresh the page to enter credentials again")
+    var errorCode=error.code;
+    var errorMsg=error.message;
+
+   });
+  }
+</script>
